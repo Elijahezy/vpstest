@@ -1,0 +1,49 @@
+
+.container {
+  height: 100%;
+}
+
+
+.main {
+  min-height: 100vh;
+  display: grid;
+  width: 100%;
+  grid-template-rows: 50vh;
+}
+
+.form_container {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  justify-self: center;
+}
+
+.content_input {
+  width: 100%;
+  padding: 1rem;
+  border: 1px solid #ccc;
+  font-size: larger;
+    border-radius: 4px;
+
+  &:focus {
+    outline: none;
+  }
+}
+
+.content_button {
+  padding: 0.5rem;
+  border: 1px solid #625672;
+  border-radius: 4px;
+  align-self: flex-start;
+  margin: 1rem 0rem;
+  background-color: #625672;
+  color: #fff;
+  cursor: pointer;
+}
+
+.chat_container {
+  width: 50%;
+  justify-self: center;
+
+}
