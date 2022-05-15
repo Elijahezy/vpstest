@@ -2,6 +2,7 @@ import Head from 'next/head';
 import Image from 'next/image';
 import { useEffect, useRef, useState } from 'react';
 import Message from '../components/message';
+import RegistrationModal from '../components/modals/registration-modal/registration-modal';
 import styles from '../styles/Home.module.scss';
 
 
@@ -71,9 +72,9 @@ export default function Home() {
         <div className={styles.chat_container}>
           {messages.map((message, index) => {
             return <Message key={index} props={message} />
-          })}
+          }).reverse()}
         </div>
-
+        <RegistrationModal />
       </main>
     </div>
   );
