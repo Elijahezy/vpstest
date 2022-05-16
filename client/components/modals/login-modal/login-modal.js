@@ -4,6 +4,7 @@ import axios from 'axios';
 import { saveToken } from '../../../services/token';
 import styles from '../../../styles/modals/Login.module.scss';
 import { customStyles } from '../../../utils/utils';
+import { BACKEND_URL } from '../../../services/route.js';
 
 Modal.setAppElement('#__next');
 
@@ -39,7 +40,7 @@ const LoginModal = ({
       data[key] = value;
     });
     axios
-      .post('http://localhost:5000/login', data)
+      .post(`${BACKEND_URL}/login`, data)
       .then((response) => {
         closeModal();
         console.log(response.data.token);

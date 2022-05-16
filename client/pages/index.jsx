@@ -1,6 +1,5 @@
 import axios from 'axios';
 import Head from 'next/head';
-import Image from 'next/image';
 import { useEffect, useRef, useState } from 'react';
 import Menu from '../components/menu/menu';
 import Message from '../components/chat/chat-message/message';
@@ -33,12 +32,8 @@ export default function Home({ messages }) {
   }
 
 
-  // useEffect(() => {
-  //   setAllMessages(messages);
-  // }, []);
-
   useEffect(() => {
-    ws.current = new WebSocket('ws://localhost:5000/');
+    ws.current = new WebSocket('ws://80.209.235.199:5000/');
 
 
     ws.current.onmessage = (event) => {
@@ -52,7 +47,7 @@ export default function Home({ messages }) {
 
   useEffect(() => {
     axios
-      .post('http://localhost:5000/', {
+      .post(`${BACKEND_URL}`, {
         token: getToken(),
       })
       .then((response) => {
@@ -85,7 +80,7 @@ export default function Home({ messages }) {
             return <Message key={index} message={message.message} username={message.username} />
           }).reverse()}
         </div>
-        <RegistrationModal setIsOpen={setIsRegistrationOpen} modalIsOpen={registrationIsOpen} />
+        <RegistrationModal setIsOpen={setIsRegistrationOpen} modalIsOpen={registrationIsOpen} setUserName={setUserName} />
         <LoginModal setIsOpen={setIsLoginOpen} modalIsOpen={loginIsOpen} setUserName={setUserName} setIsRegistrationOpen={setIsRegistrationOpen} />
       </main>
     </div>

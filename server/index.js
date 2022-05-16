@@ -10,7 +10,7 @@ const chatController = require('./controllers/chatController');
 const app = express();
 app.use(express.json());
 
-app.use(cors({ origin: 'http://localhost:3000' }));
+app.use(cors({ origin: 'http://80.209.235.199:3000' }));
 
 const WSserver = require('express-ws')(app);
 const aWss = WSserver.getWss();
@@ -22,7 +22,7 @@ app.use('/', chatRouter);
 
 mongoose.connect(
   'mongodb+srv://elijah:ARTEEZYfun1@mycluster.lqs7u.mongodb.net/myFirstDatabase?retryWrites=true&w=majority'
-).then;
+);
 
 app.ws('/', (ws, req) => {
   ws.on('message', (msg) => {

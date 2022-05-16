@@ -1,9 +1,8 @@
 import styles from '../../../styles/RegistrationModal.module.scss';
 import Modal from 'react-modal';
-import { useEffect, useState } from 'react';
 import { BACKEND_URL } from '../../../services/route';
 import axios from 'axios';
-import { getToken, saveToken } from '../../../services/token';
+import { saveToken } from '../../../services/token';
 
 const customStyles = {
   content: {
@@ -18,7 +17,7 @@ const customStyles = {
 
 Modal.setAppElement('#__next');
 
-function RegistrationModal({ setIsOpen, modalIsOpen }) {
+function RegistrationModal({ setIsOpen, modalIsOpen, setUserName }) {
   function openModal() {
     setIsOpen(true);
   }
@@ -40,10 +39,11 @@ function RegistrationModal({ setIsOpen, modalIsOpen }) {
       data[key] = value;
     });
     axios
-      .post('http://localhost:5000/registration', data)
+      .post(`${BACKEND_URL}/registration`, data)
       .then((response) => {
         setIsOpen(false);
         saveToken(response.data.token);
+        setUserName(response.data.username);
       })
       .catch((err) => {
         console.log(err);
