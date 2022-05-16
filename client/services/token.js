@@ -1,4 +1,4 @@
-const AUTH_TOKEN_KEY_NAME = 'what-to-watch';
+const AUTH_TOKEN_KEY_NAME = 'authToken';
 
 export const getToken = () => {
   const token = localStorage.getItem(AUTH_TOKEN_KEY_NAME);

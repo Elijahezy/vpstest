@@ -4,13 +4,20 @@
     background-color: #fafafa;
     margin-top: 1rem;
     border: 1px solid #eaeaea;
+    word-wrap: break-word;
+
+    h3 {
+        margin-top: 0;
+        margin-bottom: 0.5rem;
+        font-size: 1.2rem;
+        font-weight: 600;
+    }
+
+    p {
+        margin-top: 0;
+        margin-bottom: 0.5rem;
+    }
 }
 
-
-.name {
-    font-size: larger;
-    font-weight: bold;
-
-}
 
 

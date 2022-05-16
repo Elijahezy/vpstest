@@ -1,37 +1,36 @@
-import styles from '../../../styles/RegistrationModal.module.scss';
+import React, { useState } from 'react';
 import Modal from 'react-modal';
-import { useEffect, useState } from 'react';
-import { BACKEND_URL } from '../../../services/route';
 import axios from 'axios';
-import { getToken, saveToken } from '../../../services/token';
-
-const customStyles = {
-  content: {
-    top: '50%',
-    left: '50%',
-    right: 'auto',
-    bottom: 'auto',
-    marginRight: '-50%',
-    transform: 'translate(-50%, -50%)',
-  },
-};
+import { saveToken } from '../../../services/token';
+import styles from '../../../styles/modals/Login.module.scss';
+import { customStyles } from '../../../utils/utils';
 
 Modal.setAppElement('#__next');
 
-function RegistrationModal({ setIsOpen, modalIsOpen }) {
-  function openModal() {
+const LoginModal = ({
+  setIsOpen,
+  modalIsOpen,
+  setUserName,
+  setIsRegistrationOpen,
+}) => {
+  const openModal = () => {
     setIsOpen(true);
-  }
+  };
 
-  function afterOpenModal() {
+  const afterOpenModal = () => {
     // references are now sync'd and can be accessed.
-  }
+  };
 
-  function closeModal() {
+  const closeModal = () => {
     setIsOpen(false);
-  }
+  };
 
-  const handleRegistration = (evt) => {
+  const openRegistrationModal = () => {
+    setIsRegistrationOpen(true);
+    setIsOpen(false);
+  };
+
+  const handleLogin = (evt) => {
     evt.preventDefault();
     const form = evt.target;
     const formData = new FormData(form);
@@ -40,10 +39,12 @@ function RegistrationModal({ setIsOpen, modalIsOpen }) {
       data[key] = value;
     });
     axios
-      .post('http://localhost:5000/registration', data)
+      .post('http://localhost:5000/login', data)
       .then((response) => {
-        setIsOpen(false);
+        closeModal();
+        console.log(response.data.token);
         saveToken(response.data.token);
+        setUserName(response.data.username);
       })
       .catch((err) => {
         console.log(err);
@@ -58,10 +59,8 @@ function RegistrationModal({ setIsOpen, modalIsOpen }) {
         onRequestClose={closeModal}
         style={customStyles}
         contentLabel='Example Modal'>
-        <h2>Регистрация</h2>
-        <button onClick={closeModal}>close</button>
-        <form onSubmit={(evt) => handleRegistration(evt)}>
-          <label htmlFor='name'>Введите имя</label>
+        <h2>Войти</h2>
+        <form onSubmit={(evt) => handleLogin(evt)} className={styles.form}>
           <input
             type='text'
             id='name'
@@ -70,21 +69,22 @@ function RegistrationModal({ setIsOpen, modalIsOpen }) {
             required
             minLength={3}
           />
-          <label htmlFor='password'>Введите пароль</label>
           <input
             type='password'
             id='password'
             name='password'
+            placeholder='Введите пароль'
             required
             minLength={6}
           />
-          <button type='submit' className={styles.model__btn_primary}>
+          <button type='submit'>Войти</button>
+          <button type='button' onClick={openRegistrationModal}>
             Зарегестрироваться
           </button>
         </form>
       </Modal>
     </div>
   );
-}
+};
 
-export default RegistrationModal;
+export default LoginModal;
